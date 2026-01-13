@@ -5,11 +5,10 @@ PLENARY_DIR ?= /tmp/plenary.nvim
 TREESITTER_DIR ?= /tmp/nvim-treesitter
 TESTS_DIR := tests/terradocs
 
-# Test runner - using plenary busted
+# Test runner - minimal test
 test: deps
 	@echo "Running all tests..."
-	nvim --headless -u tests/minimal_init.lua \
-		-c "lua print('Starting tests...'); vim.cmd('qall!')"
+	nvim --headless -u tests/minimal_init.lua -c "q"
 
 # Run a specific test file
 # Usage: make test-file FILE=tests/terradocs/init_spec.lua
