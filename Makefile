@@ -5,30 +5,26 @@ PLENARY_DIR ?= /tmp/plenary.nvim
 TREESITTER_DIR ?= /tmp/nvim-treesitter
 TESTS_DIR := tests/terradocs
 
-# Test runner - uses plenary's test_harness for proper exit handling
+# Test runner
 test: deps
 	@echo "Running all tests..."
-	nvim --headless --noplugin -u tests/minimal_init.lua \
-		-c "lua require('plenary.test_harness').test_directory('$(TESTS_DIR)', { minimal_init = 'tests/minimal_init.lua' })"
+	nvim --headless --noplugin -u tests/minimal_init.lua -c "PlenaryBustedDirectory $(TESTS_DIR) {minimal_init = 'tests/minimal_init.lua', sequential = true}"
 
 # Run a specific test file
 # Usage: make test-file FILE=tests/terradocs/init_spec.lua
 test-file: deps
 	@echo "Running tests in $(FILE)..."
-	nvim --headless --noplugin -u tests/minimal_init.lua \
-		-c "lua require('plenary.busted').run('$(FILE)')"
+	nvim --headless --noplugin -u tests/minimal_init.lua -c "PlenaryBustedFile $(FILE)"
 
 # Run only init tests
 test-init: deps
 	@echo "Running init.lua tests..."
-	nvim --headless --noplugin -u tests/minimal_init.lua \
-		-c "lua require('plenary.busted').run('tests/terradocs/init_spec.lua')"
+	nvim --headless --noplugin -u tests/minimal_init.lua -c "PlenaryBustedFile tests/terradocs/init_spec.lua"
 
 # Run only ts_helper tests
 test-ts-helper: deps
 	@echo "Running ts_helper.lua tests..."
-	nvim --headless --noplugin -u tests/minimal_init.lua \
-		-c "lua require('plenary.busted').run('tests/terradocs/ts_helper_spec.lua')"
+	nvim --headless --noplugin -u tests/minimal_init.lua -c "PlenaryBustedFile tests/terradocs/ts_helper_spec.lua"
 
 # Install test dependencies
 deps:
