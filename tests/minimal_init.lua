@@ -23,6 +23,5 @@ vim.opt.runtimepath:append(treesitter_dir)
 vim.o.swapfile = false
 vim.o.backup = false
 vim.o.writebackup = false
-
--- Load plenary
-require("plenary.busted")
+vim.cmd([[filetype plugin indent on]])
+vim.cmd([[syntax enable]])
