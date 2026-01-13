@@ -5,10 +5,15 @@ PLENARY_DIR ?= /tmp/plenary.nvim
 TREESITTER_DIR ?= /tmp/nvim-treesitter
 TESTS_DIR := tests/terradocs
 
-# Test runner - using PlenaryBustedDirectory
+# Test runner - run tests one file at a time
 test: deps
-	@echo "Running all tests..."
-	nvim --headless -u tests/minimal_init.lua -c "PlenaryBustedDirectory tests/terradocs"
+	@echo "Running init tests..."
+	@nvim --headless -u tests/minimal_init.lua -c "PlenaryBustedFile tests/terradocs/init_spec.lua"
+	@echo "Running ts_helper tests..."
+	@nvim --headless -u tests/minimal_init.lua -c "PlenaryBustedFile tests/terradocs/ts_helper_spec.lua"
+	@echo "Running sanity tests..."
+	@nvim --headless -u tests/minimal_init.lua -c "PlenaryBustedFile tests/terradocs/sanity_spec.lua"
+	@echo "All tests completed!"
 
 # Run a specific test file
 # Usage: make test-file FILE=tests/terradocs/init_spec.lua
