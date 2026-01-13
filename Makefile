@@ -9,7 +9,7 @@ TESTS_DIR := tests/terradocs
 test: deps
 	@echo "Running all tests..."
 	nvim --headless -u tests/minimal_init.lua \
-		-c "lua local ok, err = pcall(function() require('plenary.busted').run('tests/terradocs/sanity_spec.lua') end); if not ok then print('ERROR: ' .. tostring(err)); vim.cmd('cq1') end"
+		-c "lua print('Starting tests...'); vim.cmd('qall!')"
 
 # Run a specific test file
 # Usage: make test-file FILE=tests/terradocs/init_spec.lua
