@@ -29,7 +29,8 @@ M.get_resource_info = function()
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	local cursor_row = cursor_pos[1] - 1
 
-	local block_type, first_template_literal
+	local block_type = nil
+	local first_template_literal = nil
 
 	for id, node in query:iter_captures(root, 0, cursor_row, cursor_row + 1) do
 		local node_type = query.captures[id]
