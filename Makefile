@@ -8,11 +8,7 @@ TESTS_DIR := tests/terradocs
 # Test runner - using PlenaryBustedDirectory
 test: deps
 	@echo "Running all tests..."
-	@nvim \
-		--headless \
-		--noplugin \
-		-u tests/minimal_init.lua \
-		-c "PlenaryBustedDirectory tests/terradocs { sequential = true, minimal_init = 'tests/minimal_init.lua' }"
+	@nvim --headless --noplugin -u tests/minimal_init.lua -c "PlenaryBustedDirectory tests/terradocs"
 
 # Run a specific test file
 # Usage: make test-file FILE=tests/terradocs/init_spec.lua
