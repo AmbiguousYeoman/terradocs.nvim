@@ -13,7 +13,7 @@ test: deps
 		-c "set rtp+=$(PLENARY_DIR)" \
 		-c "set rtp+=$(TREESITTER_DIR)" \
 		-c "runtime plugin/plenary.vim" \
-		-c "PlenaryBustedDirectory $(TESTS_DIR) {sequential = true}"
+		-c "PlenaryBustedDirectory $(TESTS_DIR)"
 
 # Run a specific test file
 # Usage: make test-file FILE=tests/terradocs/init_spec.lua
