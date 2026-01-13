@@ -17,6 +17,9 @@ vim.o.swapfile = false
 vim.o.backup = false
 vim.o.writebackup = false
 
+-- Set leader key for keymap tests
+vim.g.mapleader = " "
+
 -- Load plugins
 vim.cmd([[runtime plugin/plenary.vim]])
 
