@@ -35,6 +35,7 @@ jobs:
       - name: Run tests
         run: |
           make test
+        timeout-minutes: 5
         env:
           PLENARY_DIR: /tmp/plenary.nvim
           TREESITTER_DIR: /tmp/nvim-treesitter

@@ -15,14 +15,14 @@ if vim.fn.isdirectory(treesitter_dir) == 0 then
 end
 
 -- Add plugins to runtimepath
-vim.opt.runtimepath:append(".")
+vim.opt.runtimepath:prepend(".")
 vim.opt.runtimepath:append(plenary_dir)
 vim.opt.runtimepath:append(treesitter_dir)
-
--- Load plenary
-require("plenary.busted")
 
 -- Set up basic options
 vim.o.swapfile = false
 vim.o.backup = false
 vim.o.writebackup = false
+
+-- Load plenary
+require("plenary.busted")

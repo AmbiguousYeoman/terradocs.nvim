@@ -8,8 +8,7 @@ TESTS_DIR := tests
 # Test runner
 test: deps
 	@echo "Running all tests..."
-	nvim --headless --noplugin -u tests/minimal_init.lua \
-		-c "PlenaryBustedDirectory $(TESTS_DIR) { minimal_init = 'tests/minimal_init.lua' }"
+	nvim --headless -c "PlenaryBustedDirectory tests/terradocs { minimal_init = 'tests/minimal_init.lua' }"
 
 # Run a specific test file
 # Usage: make test-file FILE=tests/terradocs/init_spec.lua

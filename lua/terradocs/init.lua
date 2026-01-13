@@ -29,7 +29,7 @@ local function preview_markdown(content, search_url)
 		border = "rounded",
 	}
 
-	local win = vim.api.nvim_open_win(buf, true, opts)
+	vim.api.nvim_open_win(buf, true, opts)
 	vim.api.nvim_buf_set_lines(buf, 0, -1, true, vim.fn.readfile(tempfile))
 	vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
 	vim.api.nvim_buf_set_option(buf, "filetype", "markdown")
@@ -145,7 +145,7 @@ local function terraform_search(declaration, resource_type)
 	end
 
 	local file_path = resource_type .. ".html.markdown"
-	local github_api_url = github_api_url .. file_path
+	github_api_url = github_api_url .. file_path
 
 	local search_url = registry_url .. resource_type
 
