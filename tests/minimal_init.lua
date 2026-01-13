@@ -4,7 +4,10 @@
 local plenary_dir = os.getenv("PLENARY_DIR") or "/tmp/plenary.nvim"
 local treesitter_dir = os.getenv("TREESITTER_DIR") or "/tmp/nvim-treesitter"
 
--- Add plugins to runtimepath (assume they're already cloned in CI)
+-- Override notify to print to stdout for CI visibility
+vim.notify = print
+
+-- Add plugins to runtimepath
 vim.opt.runtimepath:prepend(".")
 vim.opt.runtimepath:append(plenary_dir)
 vim.opt.runtimepath:append(treesitter_dir)
@@ -13,8 +16,10 @@ vim.opt.runtimepath:append(treesitter_dir)
 vim.o.swapfile = false
 vim.o.backup = false
 vim.o.writebackup = false
+
+-- Load plugins
+vim.cmd([[runtime plugin/plenary.vim]])
+
+-- Enable filetype detection and syntax
 vim.cmd([[filetype plugin indent on]])
 vim.cmd([[syntax enable]])
-
--- Load plenary busted (required for PlenaryBustedDirectory/PlenaryBustedFile)
-require("plenary.busted")
