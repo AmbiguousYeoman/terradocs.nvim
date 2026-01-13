@@ -23,3 +23,6 @@ vim.cmd([[runtime plugin/plenary.vim]])
 -- Enable filetype detection and syntax
 vim.cmd([[filetype plugin indent on]])
 vim.cmd([[syntax enable]])
+
+-- Ensure plenary busted commands are available
+require("plenary.busted")

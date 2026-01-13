@@ -8,26 +8,23 @@ TESTS_DIR := tests/terradocs
 # Test runner - using PlenaryBustedDirectory
 test: deps
 	@echo "Running all tests..."
-	@nvim --headless --noplugin -u tests/minimal_init.lua -c "PlenaryBustedDirectory tests/terradocs"
+	nvim --headless -u tests/minimal_init.lua -c "PlenaryBustedDirectory tests/terradocs"
 
 # Run a specific test file
 # Usage: make test-file FILE=tests/terradocs/init_spec.lua
 test-file: deps
 	@echo "Running tests in $(FILE)..."
-	@nvim --headless --noplugin -u tests/minimal_init.lua \
-		-c "PlenaryBustedFile $(FILE)"
+	nvim --headless -u tests/minimal_init.lua -c "PlenaryBustedFile $(FILE)"
 
 # Run only init tests
 test-init: deps
 	@echo "Running init.lua tests..."
-	@nvim --headless --noplugin -u tests/minimal_init.lua \
-		-c "PlenaryBustedFile tests/terradocs/init_spec.lua"
+	nvim --headless -u tests/minimal_init.lua -c "PlenaryBustedFile tests/terradocs/init_spec.lua"
 
 # Run only ts_helper tests
 test-ts-helper: deps
 	@echo "Running ts_helper.lua tests..."
-	@nvim --headless --noplugin -u tests/minimal_init.lua \
-		-c "PlenaryBustedFile tests/terradocs/ts_helper_spec.lua"
+	nvim --headless -u tests/minimal_init.lua -c "PlenaryBustedFile tests/terradocs/ts_helper_spec.lua"
 
 # Install test dependencies
 deps:
