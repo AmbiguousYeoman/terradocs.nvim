@@ -23,6 +23,3 @@ vim.g.mapleader = " "
 -- Enable filetype detection and syntax
 vim.cmd([[filetype plugin indent on]])
 vim.cmd([[syntax enable]])
-
--- Load plenary busted which creates the commands
-require("plenary.busted")
