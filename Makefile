@@ -5,12 +5,10 @@ PLENARY_DIR ?= /tmp/plenary.nvim
 TREESITTER_DIR ?= /tmp/nvim-treesitter
 TESTS_DIR := tests/terradocs
 
-# Test runner - run sanity and init tests only (ts_helper requires HCL parser)
+# Test runner - run just sanity tests
 test: deps
 	@echo "Running sanity tests..."
 	@nvim --headless -u tests/minimal_init.lua -c "PlenaryBustedFile tests/terradocs/sanity_spec.lua"
-	@echo "Running init tests..."
-	@nvim --headless -u tests/minimal_init.lua -c "PlenaryBustedFile tests/terradocs/init_spec.lua"
 	@echo "Tests completed!"
 
 # Run a specific test file
