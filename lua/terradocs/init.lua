@@ -41,42 +41,45 @@ local function preview_markdown(content, search_url)
 	vim.api.nvim_buf_set_keymap(buf, "n", "<CR>", command, { nowait = true, noremap = true, silent = true })
 end
 
+-- Provider lists for validation
+local hashicorp_providers = {
+	"ad",
+	"archive",
+	"aws",
+	"awscc",
+	"azuread",
+	"azurerm",
+	"azurestack",
+	"boundary",
+	"cloudinit",
+	"consul",
+	"dns",
+	"external",
+	"google",
+	"google-beta",
+	"googleworkspace",
+	"kubernetes",
+	"hcp",
+	"hcs",
+	"helm",
+	"http",
+	"local",
+	"nomad",
+	"null",
+	"random",
+	"salesforce",
+	"tfe",
+	"time",
+	"tls",
+	"vault",
+	"vsphere",
+}
+
+local oracle_providers = {
+	"oci",
+}
+
 local function check_provider(provider)
-	local hashicorp_providers = {
-		"ad",
-		"archive",
-		"aws",
-		"awscc",
-		"azuread",
-		"azurerm",
-		"azurestack",
-		"boundary",
-		"cloudinit",
-		"consul",
-		"dns",
-		"external",
-		"google",
-		"google-beta",
-		"googleworkspace",
-		"kubernetes",
-		"hcp",
-		"hcs",
-		"helm",
-		"http",
-		"local",
-		"nomad",
-		"null",
-		"random",
-		"salesforce",
-		"tfe",
-		"time",
-		"tls",
-		"vault",
-		"vsphere",
-	}
-	local oracle_providers = {
-		"oci",
-	}
 	for _, v in pairs(oracle_providers) do
 		if v == provider then
 			return "oracle"
@@ -196,5 +199,13 @@ function M.setup()
 	-- Optional: Map a key to the search command for convenience
 	vim.api.nvim_set_keymap("n", "<leader>t", ":TFSearch<CR>", { noremap = true, silent = true })
 end
+
+-- Expose internal functions for testing (prefixed with _)
+M._check_provider = check_provider
+M._generate_search_urls = generate_search_urls
+M._terraform_search = terraform_search
+M._preview_markdown = preview_markdown
+M._hashicorp_providers = hashicorp_providers
+M._oracle_providers = oracle_providers
 
 return M
