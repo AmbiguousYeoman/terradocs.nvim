@@ -9,7 +9,7 @@ TESTS_DIR := tests/terradocs
 test: deps
 	@echo "Running all tests..."
 	nvim --headless -u tests/minimal_init.lua \
-		-c "lua require('plenary.test_harness').test_directory('tests/terradocs', {minimal_init='tests/minimal_init.lua', sequential=true})"
+		-c "lua require('plenary.test_harness').test_directory(vim.fn.getcwd() .. '/tests/terradocs', {minimal_init=vim.fn.getcwd() .. '/tests/minimal_init.lua', sequential=true})"
 
 # Run a specific test file
 # Usage: make test-file FILE=tests/terradocs/init_spec.lua
