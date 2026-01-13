@@ -79,7 +79,7 @@ The plugin supports 31 Terraform providers:
 - Use `vim.api.nvim_*` for buffer/window/keymap operations
 - Use `vim.fn` for Vimscript functions (system calls, file operations)
 - Use `vim.treesitter` for syntax parsing
-- Use `vim.o.*` for editor options
+- Use `vim.o` for editor options
 
 ### Error Handling
 - Check `vim.v.shell_error` after shell commands
