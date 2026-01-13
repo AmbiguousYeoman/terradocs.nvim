@@ -1,5 +1,9 @@
 -- Tests for terradocs/init.lua
-local terradocs = require("terradocs")
+local ok, terradocs = pcall(require, "terradocs")
+if not ok then
+	print("ERROR loading terradocs: " .. tostring(terradocs))
+	error("Failed to load terradocs module")
+end
 
 describe("terradocs", function()
 	describe("config", function()
