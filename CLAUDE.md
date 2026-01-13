@@ -77,7 +77,7 @@ The plugin supports 31 Terraform providers:
 
 ### Neovim API Usage
 - Use `vim.api.nvim_*` for buffer/window/keymap operations
-- Use `vim.fn.*` for Vimscript functions (system calls, file operations)
+- Use `vim.fn` for Vimscript functions (system calls, file operations)
 - Use `vim.treesitter` for syntax parsing
 - Use `vim.o.*` for editor options
 
