@@ -8,23 +8,43 @@ TESTS_DIR := tests/terradocs
 # Test runner
 test: deps
 	@echo "Running all tests..."
-	nvim --headless --noplugin -u tests/minimal_init.lua -c "PlenaryBustedDirectory $(TESTS_DIR) {minimal_init = 'tests/minimal_init.lua', sequential = true}"
+	@nvim --headless -u NONE \
+		-c "set rtp+=." \
+		-c "set rtp+=$(PLENARY_DIR)" \
+		-c "set rtp+=$(TREESITTER_DIR)" \
+		-c "runtime plugin/plenary.vim" \
+		-c "PlenaryBustedDirectory $(TESTS_DIR) {sequential = true}"
 
 # Run a specific test file
 # Usage: make test-file FILE=tests/terradocs/init_spec.lua
 test-file: deps
 	@echo "Running tests in $(FILE)..."
-	nvim --headless --noplugin -u tests/minimal_init.lua -c "PlenaryBustedFile $(FILE)"
+	@nvim --headless -u NONE \
+		-c "set rtp+=." \
+		-c "set rtp+=$(PLENARY_DIR)" \
+		-c "set rtp+=$(TREESITTER_DIR)" \
+		-c "runtime plugin/plenary.vim" \
+		-c "PlenaryBustedFile $(FILE)"
 
 # Run only init tests
 test-init: deps
 	@echo "Running init.lua tests..."
-	nvim --headless --noplugin -u tests/minimal_init.lua -c "PlenaryBustedFile tests/terradocs/init_spec.lua"
+	@nvim --headless -u NONE \
+		-c "set rtp+=." \
+		-c "set rtp+=$(PLENARY_DIR)" \
+		-c "set rtp+=$(TREESITTER_DIR)" \
+		-c "runtime plugin/plenary.vim" \
+		-c "PlenaryBustedFile tests/terradocs/init_spec.lua"
 
 # Run only ts_helper tests
 test-ts-helper: deps
 	@echo "Running ts_helper.lua tests..."
-	nvim --headless --noplugin -u tests/minimal_init.lua -c "PlenaryBustedFile tests/terradocs/ts_helper_spec.lua"
+	@nvim --headless -u NONE \
+		-c "set rtp+=." \
+		-c "set rtp+=$(PLENARY_DIR)" \
+		-c "set rtp+=$(TREESITTER_DIR)" \
+		-c "runtime plugin/plenary.vim" \
+		-c "PlenaryBustedFile tests/terradocs/ts_helper_spec.lua"
 
 # Install test dependencies
 deps:
