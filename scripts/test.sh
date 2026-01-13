@@ -55,12 +55,12 @@ run_tests() {
 
     if [ -f "$test_path" ]; then
         # Single file
-        nvim --headless --noplugin -u tests/minimal_init.lua \
+        nvim --headless -u tests/minimal_init.lua \
             -c "PlenaryBustedFile $test_path"
     else
-        # Directory
-        nvim --headless --noplugin -u tests/minimal_init.lua \
-            -c "PlenaryBustedDirectory $test_path { minimal_init = 'tests/minimal_init.lua' }"
+        # Directory - use lua to call test_harness for better control
+        nvim --headless -u tests/minimal_init.lua \
+            -c "lua require('plenary.test_harness').test_directory('$test_path', {minimal_init='tests/minimal_init.lua', sequential=true})"
     fi
 }
 
