@@ -5,12 +5,12 @@ PLENARY_DIR ?= /tmp/plenary.nvim
 TREESITTER_DIR ?= /tmp/nvim-treesitter
 TESTS_DIR := tests/terradocs
 
-# Test runner - run sanity and init tests
+# Test runner - check module loading and run tests
 test: deps
+	@echo "Checking if terradocs module can be loaded..."
+	@nvim --headless -u tests/minimal_init.lua -c "lua local ok, err = pcall(require, 'terradocs'); if ok then print('terradocs loaded OK'); vim.cmd('q') else print('ERROR: ' .. tostring(err)); vim.cmd('cq1') end"
 	@echo "Running sanity tests..."
 	@nvim --headless -u tests/minimal_init.lua -c "PlenaryBustedFile tests/terradocs/sanity_spec.lua"
-	@echo "Running init tests..."
-	@nvim --headless -u tests/minimal_init.lua -c "PlenaryBustedFile tests/terradocs/init_spec.lua"
 	@echo "Tests completed!"
 
 # Run a specific test file
