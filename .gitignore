@@ -1,0 +1,19 @@
+# Test dependencies (installed in /tmp by default)
+/tmp/
+
+# Luarocks
+*.rock
+lua_modules/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+
+# Test artifacts
+*.log

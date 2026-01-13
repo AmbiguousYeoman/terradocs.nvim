@@ -1,0 +1,78 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        neovim_version: ['stable', 'nightly']
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: Setup Neovim
+        uses: rhysd/action-setup-vim@19e3dd31a84dbc2c5445d65e9b363f616cab96c1 # v1.6.0
+        with:
+          neovim: true
+          version: ${{ matrix.neovim_version }}
+
+      - name: Install plenary.nvim
+        run: |
+          git clone --depth 1 https://github.com/nvim-lua/plenary.nvim /tmp/plenary.nvim
+
+      - name: Install nvim-treesitter
+        run: |
+          git clone --depth 1 https://github.com/nvim-treesitter/nvim-treesitter /tmp/nvim-treesitter
+
+      - name: Run tests
+        run: |
+          make test
+        timeout-minutes: 5
+        env:
+          PLENARY_DIR: /tmp/plenary.nvim
+          TREESITTER_DIR: /tmp/nvim-treesitter
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: Install luacheck
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y luarocks
+          sudo luarocks install luacheck
+
+      - name: Run luacheck
+        run: |
+          luacheck lua/ tests/ --no-unused-args --no-max-line-length --codes
+
+  style:
+    name: Code Style
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: Install stylua
+        run: |
+          curl -L -o stylua.zip https://github.com/JohnnyMorganz/StyLua/releases/download/v2.3.1/stylua-linux-x86_64.zip
+          unzip stylua.zip
+          chmod +x stylua
+          sudo mv stylua /usr/local/bin/
+
+      - name: Check formatting
+        run: |
+          stylua --check lua/ tests/ || echo "::warning::Code is not formatted with stylua"

@@ -29,16 +29,14 @@ M.get_resource_info = function()
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	local cursor_row = cursor_pos[1] - 1
 
-	local block_type, first_template_literal
-	local found_block = false
+	local block_type = nil
+	local first_template_literal = nil
 
 	for id, node in query:iter_captures(root, 0, cursor_row, cursor_row + 1) do
 		local node_type = query.captures[id]
 		local node_start_row, _, node_end_row, _ = node:range()
 
 		if cursor_row >= node_start_row and cursor_row <= node_end_row then
-			found_block = true
-
 			if node_type == "block_type" then
 				block_type = vim.treesitter.get_node_text(node, 0)
 			elseif node_type == "template_literal" and not first_template_literal then
