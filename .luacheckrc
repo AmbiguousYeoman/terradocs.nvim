@@ -1,5 +1,7 @@
 -- Luacheck configuration for terradocs.nvim
 
+std = "luajit"
+
 -- Global vim namespace
 globals = {
 	"vim",
@@ -15,15 +17,15 @@ read_globals = {
 	"assert",
 }
 
--- Ignore unused arguments (common in callbacks)
-unused_args = false
-
 -- Max line length
 max_line_length = false
 
 -- Ignore specific warnings
 ignore = {
+	"211", -- Unused local variable
 	"212", -- Unused argument
+	"213", -- Unused loop variable
+	"311", -- Value assigned to local variable is unused
 	"631", -- Line too long
 }
 
