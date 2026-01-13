@@ -5,46 +5,30 @@ PLENARY_DIR ?= /tmp/plenary.nvim
 TREESITTER_DIR ?= /tmp/nvim-treesitter
 TESTS_DIR := tests/terradocs
 
-# Test runner
+# Test runner - simplified approach
 test: deps
 	@echo "Running all tests..."
-	@nvim --headless -u NONE \
-		-c "set rtp+=." \
-		-c "set rtp+=$(PLENARY_DIR)" \
-		-c "set rtp+=$(TREESITTER_DIR)" \
-		-c "runtime plugin/plenary.vim" \
-		-c "PlenaryBustedDirectory $(TESTS_DIR)"
+	@nvim --headless -u tests/minimal_init.lua \
+		-c "lua require('plenary.busted'); require('plenary.test_harness').test_directory('tests/terradocs', {minimal_init='tests/minimal_init.lua'})"
 
 # Run a specific test file
 # Usage: make test-file FILE=tests/terradocs/init_spec.lua
 test-file: deps
 	@echo "Running tests in $(FILE)..."
-	@nvim --headless -u NONE \
-		-c "set rtp+=." \
-		-c "set rtp+=$(PLENARY_DIR)" \
-		-c "set rtp+=$(TREESITTER_DIR)" \
-		-c "runtime plugin/plenary.vim" \
-		-c "PlenaryBustedFile $(FILE)"
+	@nvim --headless -u tests/minimal_init.lua \
+		-c "lua require('plenary.busted'); require('plenary.busted').run('$(FILE)')"
 
 # Run only init tests
 test-init: deps
 	@echo "Running init.lua tests..."
-	@nvim --headless -u NONE \
-		-c "set rtp+=." \
-		-c "set rtp+=$(PLENARY_DIR)" \
-		-c "set rtp+=$(TREESITTER_DIR)" \
-		-c "runtime plugin/plenary.vim" \
-		-c "PlenaryBustedFile tests/terradocs/init_spec.lua"
+	@nvim --headless -u tests/minimal_init.lua \
+		-c "lua require('plenary.busted'); require('plenary.busted').run('tests/terradocs/init_spec.lua')"
 
 # Run only ts_helper tests
 test-ts-helper: deps
 	@echo "Running ts_helper.lua tests..."
-	@nvim --headless -u NONE \
-		-c "set rtp+=." \
-		-c "set rtp+=$(PLENARY_DIR)" \
-		-c "set rtp+=$(TREESITTER_DIR)" \
-		-c "runtime plugin/plenary.vim" \
-		-c "PlenaryBustedFile tests/terradocs/ts_helper_spec.lua"
+	@nvim --headless -u tests/minimal_init.lua \
+		-c "lua require('plenary.busted'); require('plenary.busted').run('tests/terradocs/ts_helper_spec.lua')"
 
 # Install test dependencies
 deps:
